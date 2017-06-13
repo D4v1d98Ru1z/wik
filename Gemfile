@@ -18,8 +18,9 @@ source 'https://rubygems.org'
  gem 'coffee-rails', '~> 4.1.0'
  gem 'jquery-rails'
  gem 'turbolinks'
- gem 'bootstrap'
+ gem 'bootstrap', git: 'https://github.com/twbs/bootstrap-rubygem'
  gem 'figaro'
+ gem 'devise'
 
  group :development, :test do
    gem 'byebug'
