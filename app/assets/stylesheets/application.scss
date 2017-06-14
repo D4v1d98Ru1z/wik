@@ -20,9 +20,14 @@
 }
 
 .nav {
-  margin-top: 5px;
+  margin-top: 10px;
 }
 
 .pull-right {
-    float: right !important;
+  text-align: right;
+  float: right;
+}
+
+.nav-links {
+  padding-right: 10px;
 }
