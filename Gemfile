@@ -25,6 +25,7 @@ end
  gem 'bootstrap', git: 'https://github.com/twbs/bootstrap-rubygem'
  gem 'figaro'
  gem 'devise'
+ gem "pundit"
 
  group :development, :test do
    gem 'byebug'
