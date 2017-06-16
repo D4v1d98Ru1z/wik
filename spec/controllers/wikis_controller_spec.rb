@@ -1,7 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe WikisController, type: :controller do
-  let(:my_wiki) { Wiki.create!(title: "title", body: "body", private: false) }
+  let(:my_user) { User.create!(email:"user@user.com", password:"password") }
+  let(:my_wiki) { Wiki.create!(title: "title", body: "body", private: false, user: my_user) }
 
   describe "GET #index" do
     it "returns http success" do
@@ -16,6 +17,10 @@ RSpec.describe WikisController, type: :controller do
   end
 
   describe "GET #show" do
+    before do
+      sign_in my_user
+    end
+
     it "returns http success" do
       get :show, {id: my_wiki.id}
       expect(response).to have_http_status(:success)
@@ -33,6 +38,10 @@ RSpec.describe WikisController, type: :controller do
   end
 
   describe "GET #new" do
+    before do
+      sign_in my_user
+    end
+
     it "returns http success" do
       get :new
       expect(response).to have_http_status(:success)
@@ -50,22 +59,30 @@ RSpec.describe WikisController, type: :controller do
   end
 
   describe "POST #create" do
+    before do
+      sign_in my_user
+    end
+
     it "increases the number of Wikis by 1" do
-      expect {post :create, wiki: {title:"title", body: "body"}}.to change(Wiki,:count).by(1)
+      expect {post :create, wiki: {title:"title", body: "body", user: my_user}}.to change(Wiki,:count).by(1)
     end
 
     it "assigngs the new wiki to a @wiki" do
-      post :create, wiki: {title:"title", body: "body"}
+      post :create, wiki: {title:"title", body: "body", user: my_user }
       expect(assigns(:wiki)).to eq Wiki.last
     end
 
     it "redirects to the new wiki" do
-      post :create, wiki: {title:"title", body: "body"}
+      post :create, wiki: {title:"title", body: "body", user: my_user }
       expect(response).to redirect_to Wiki.last
     end
   end
 
   describe "GET #edit" do
+    before do
+      sign_in my_user
+    end
+
     it "returns http success" do
       get :edit, {id: my_wiki.id}
       expect(response).to have_http_status(:success)
@@ -86,11 +103,15 @@ RSpec.describe WikisController, type: :controller do
   end
 
   describe "PUT #update" do
+    before do
+      sign_in my_user
+    end
+
     it "updates the wiki with expected attributes" do
       new_title = "New Title"
       new_body = "New Body"
 
-      put :update, id: my_wiki.id, wiki:{title: new_title, body: new_body}
+      put :update, id: my_wiki.id, wiki:{title: new_title, body: new_body, user: my_user}
 
       updated_wiki = assigns(:wiki)
       expect(updated_wiki.id).to eq my_wiki.id
@@ -102,13 +123,17 @@ RSpec.describe WikisController, type: :controller do
       new_title = "New Title"
       new_body = "New Body"
 
-      put :update, id: my_wiki.id, wiki:{title: new_title, body: new_body}
+      put :update, id: my_wiki.id, wiki:{title: new_title, body: new_body, user: my_user}
 
       expect(response).to redirect_to my_wiki
     end
   end
 
   describe "DELETE #destroy" do
+    before do
+      sign_in my_user
+    end
+
     it "deletes the wiki" do
       delete :destroy, {id: my_wiki.id}
       count = Wiki.where({id: my_wiki.id}).size
