@@ -18,7 +18,7 @@ RSpec.describe WikisController, type: :controller do
 
   describe "GET #show" do
     before do
-      sign_in :my_user
+      sign_in my_user
     end
 
     it "returns http success" do
@@ -39,7 +39,7 @@ RSpec.describe WikisController, type: :controller do
 
   describe "GET #new" do
     before do
-      sign_in :my_user
+      sign_in my_user
     end
 
     it "returns http success" do
@@ -60,7 +60,7 @@ RSpec.describe WikisController, type: :controller do
 
   describe "POST #create" do
     before do
-      sign_in :my_user
+      sign_in my_user
     end
 
     it "increases the number of Wikis by 1" do
@@ -80,7 +80,7 @@ RSpec.describe WikisController, type: :controller do
 
   describe "GET #edit" do
     before do
-      sign_in :my_user
+      sign_in my_user
     end
 
     it "returns http success" do
@@ -104,7 +104,7 @@ RSpec.describe WikisController, type: :controller do
 
   describe "PUT #update" do
     before do
-      sign_in :my_user
+      sign_in my_user
     end
 
     it "updates the wiki with expected attributes" do
@@ -131,7 +131,7 @@ RSpec.describe WikisController, type: :controller do
 
   describe "DELETE #destroy" do
     before do
-      sign_in :my_user
+      sign_in my_user
     end
 
     it "deletes the wiki" do
