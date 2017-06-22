@@ -10,10 +10,14 @@
 <div class="row" class="index_details">
   <div class="col-md-4">
     <h2>Create as many public wikis as you want!</h2>
-    <button>Free Plan</button>
+    <%= link_to "Free Plan", new_user_registration_path, class: 'btn btn-primary' %>
   </div>
   <div class="col-md-4">
     <h2>Create private wikis!</h2>
-    <button>Premium Plan</button>
+    <% if current_user.premium? %>
+      <%= link_to "Unsubscribe from Premium", charge_path, class: 'btn btn-danger' %>
+    <% else %>
+      <%= link_to "Premium Plan", new_charge_path, class: 'btn btn-primary' %>
+    <% end %>
   </div>
 </div>
