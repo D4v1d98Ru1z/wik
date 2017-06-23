@@ -5,6 +5,8 @@ Rails.application.routes.draw do
 
   resources :charges, only: [:new, :create, :destroy]
 
+  get '/charges', to: 'charges#destroy', as: :downgrade
+
   get 'about' => 'welcome#about'
 
   root 'welcome#index'

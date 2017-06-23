@@ -15,20 +15,14 @@ class ChargesController < ApplicationController
     card: params[:stripeToken]
   )
 
-  plan = Stripe::Plan.create(
-    amount: 1500,
-    interval: 'month',
-    name: 'premium',
-    currency: 'usd',
-    id: 'premium'
-  )
-
   subscription = Stripe::Subscription.create(
     customer: customer.id,
     plan: 'premium',
   )
 
   current_user.update_attributes(role: 'premium')
+  current_user.update_attributes(stripe_id: customer.id)
+  current_user.update_attributes(stripe_subscription: subscription.id)
 
   flash[:notice] = "Your payment was successfully submitted, #{current_user.email}. Welcome to premium!"
   redirect_to wikis_path
@@ -39,8 +33,11 @@ class ChargesController < ApplicationController
   end
 
   def destroy
+    customer = Stripe::Customer.retrieve(current_user.stripe_id)
+    subscription = Stripe::Subscription.retrieve(customer.stripe_subscription)
     subscription.delete
     current_user.update_attributes(role: 'standard')
     redirect_to root_path
+    flash[:notice] = "Membership downgraded to standard."
   end
 end
