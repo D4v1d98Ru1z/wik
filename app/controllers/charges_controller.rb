@@ -33,8 +33,7 @@ class ChargesController < ApplicationController
   end
 
   def destroy
-    customer = Stripe::Customer.retrieve(current_user.stripe_id)
-    subscription = Stripe::Subscription.retrieve(customer.stripe_subscription)
+    subscription = Stripe::Subscription.retrieve(current_user.stripe_subscription)
     subscription.delete
     current_user.update_attributes(role: 'standard')
     redirect_to root_path
