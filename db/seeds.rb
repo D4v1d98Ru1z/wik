@@ -7,7 +7,7 @@ users = User.all
 
 #Create 100 fake wikis
 100.times do
-  Wiki.create!(title: Faker::Hipster.word, body: Faker::Hipster.paragraph(7), user: users.sample)
+  Wiki.create!(title: Faker::Hipster.word, body: Faker::Hipster.paragraph(7), user: users.sample, private: Faker::Boolean.boolean)
 end
 
 puts "Seed finished"

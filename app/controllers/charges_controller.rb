@@ -37,6 +37,6 @@ class ChargesController < ApplicationController
     subscription.delete
     current_user.update_attributes(role: 'standard')
     redirect_to root_path
-    flash[:notice] = "Membership downgraded to standard."
+    flash[:notice] = "Your membership has been downgraded to standard."
   end
 end
