@@ -1,5 +1,9 @@
 <% if current_user.premium? %>
-  <h4>You are already subscribed to premium!<h4>
+  <% flash[:notice] = "You are already subscribed to premium!" %>
+  <% redirect root_path %>
+<% elsif current_user.admin? %>
+  <% flash[:notice] = "You are an admin. There is no need to upgrade your account!" %>
+  <% redirect root_path %>
 <% else %>
   <%= form_tag charges_path do %>
     <h4>Subscribe to Premium</h4>

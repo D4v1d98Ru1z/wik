@@ -36,6 +36,7 @@ class ChargesController < ApplicationController
     subscription = Stripe::Subscription.retrieve(current_user.stripe_subscription)
     subscription.delete
     current_user.update_attributes(role: 'standard')
+    current_user.wikis.update_all(private: false)
     redirect_to root_path
     flash[:notice] = "Your membership has been downgraded to standard."
   end
