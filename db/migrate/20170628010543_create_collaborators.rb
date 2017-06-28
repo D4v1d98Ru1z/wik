@@ -1,13 +1,8 @@
 class CreateCollaborators < ActiveRecord::Migration
   def change
-      create_join_table :users, :wikis do |t|
-         t.index [:user_id, :wiki_id]
-         t.index [:wiki_id, :user_id]
-      end
-
       create_table :collaborators do |t|
-        t.integer :user_id
-        t.integer :wiki_id
+        t.references :user
+        t.references :wiki
         t.timestamps
       end
 
