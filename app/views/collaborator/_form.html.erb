@@ -1,0 +1,9 @@
+<%= form_for [@wiki, Collaborator.new] do |f| %>
+  <div class="form-group">
+  <%= f.label :collaborator %>
+  <%= collection_select( :collaborator, :user_id, User.all, :id, :email, {}, { :multiple => false } ) %>
+  </div>
+  <div class="form-group">
+    <%= f.submit "Add Collaborator", class: 'btn btn-success' %>
+  </div>
+<% end %>

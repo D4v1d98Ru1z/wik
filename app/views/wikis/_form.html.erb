@@ -16,12 +16,11 @@
         <%= f.label :body %>
         <%= f.text_area :body, class: 'form-control', placeholder: 'Enter wiki body' %>
       </div>
-    <% if current_user.premium? && @wiki.user == current_user || current_user.admin? %>
-        <%= f.label :collaborator %>
-        <%= collection_select( :collaborator, :user_id, User.all, :id, :email, {}, { :multiple => false } ) %>
       <div class="form-group">
         <%= f.submit "Save", class: 'btn btn-success' %>
       </div>
+    <% if current_user.premium? && @wiki.user == current_user || current_user.admin? %>
+        <%= render 'collaborator/form', locals: { wiki: @wiki }%>
     <% end %>
   </div>
   <% end %>

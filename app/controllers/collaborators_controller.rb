@@ -1,4 +1,4 @@
-class CollaboratorController < ApplicationController
+class CollaboratorsController < ApplicationController
   def new
     @collaborator = Collaborator.new
   end
@@ -17,5 +17,16 @@ class CollaboratorController < ApplicationController
   end
 
   def destroy
+    @wiki = Wiki.find(params[:wiki_id])
+    @user = User.find_by_email(params[:collaborator][:user])
+
+    if @collaborator.destroy
+      flash[:notice] = "Collaborator was removed successfully."
+      redirect_to @wiki
+    else
+      flash.now[:alert] = "There was an error deleting the collaborators."
+      render :show
+    end
   end
+  
 end
