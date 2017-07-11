@@ -2,6 +2,14 @@ class ChargesController < ApplicationController
   before_action :authenticate_user!
 
   def new
+    if current_user.premium?
+      flash[:notice] = "You are already subscribed to premium!"
+      redirect_to root_path
+    elsif current_user.admin?
+      flash[:notice] = "You are an admin and do not need to subscribe to premium!"
+      redirect_to root_path
+    end
+    
    @stripe_btn_data = {
      key: "#{ Rails.configuration.stripe[:publishable_key] }",
      description: "Premium Membership - #{current_user.email}",

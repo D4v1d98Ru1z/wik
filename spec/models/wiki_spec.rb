@@ -4,6 +4,8 @@ RSpec.describe Wiki, type: :model do
   let(:user) { User.create!(email: "user@user.com", password: "password") }
   let(:wiki) { Wiki.create!(title: "title", body: "body", private: false, user: user) }
 
+  it { is_expected.to have_many(:collaborators) }
+
   describe "attributes" do
     it "has title, body, and private attribues" do
       expect(wiki).to have_attributes(title: "title", body: "body", private: false, user: user)

@@ -3,6 +3,8 @@ require 'rails_helper'
 RSpec.describe User, type: :model do
   let(:user) { User.create!(email:'logan@logan.com', password:'password') }
 
+  it { is_expected.to have_many(:collaborators) }
+
   describe "attributes" do
     it "has an email and password attribute" do
       expect(user).to have_attributes(email:'logan@logan.com', password:'password')

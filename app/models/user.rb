@@ -5,7 +5,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   has_many :wikis, dependent: :destroy
-
+  has_many :collaborators, dependent: :destroy
   after_initialize { self.role ||= :standard }
 
   enum role: [:standard, :premium, :admin]
