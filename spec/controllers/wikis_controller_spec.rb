@@ -10,9 +10,9 @@ RSpec.describe WikisController, type: :controller do
       expect(response).to have_http_status(:success)
     end
 
-    it "assigns my_wiki to @wiki" do
+    it "renders the #index view" do
       get :index
-      expect(assigns(:wikis)).to eq([my_wiki])
+      expect(response).to render_template :index
     end
   end
 
