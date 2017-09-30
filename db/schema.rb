@@ -54,12 +54,10 @@ ActiveRecord::Schema.define(version: 20170629051250) do
     t.integer  "user_id"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
-    t.integer  "wiki_id"
     t.integer  "collaborator_id"
   end
 
   add_index "wikis", ["collaborator_id"], name: "index_wikis_on_collaborator_id"
   add_index "wikis", ["user_id"], name: "index_wikis_on_user_id"
-  add_index "wikis", ["wiki_id"], name: "index_wikis_on_wiki_id"
 
 end

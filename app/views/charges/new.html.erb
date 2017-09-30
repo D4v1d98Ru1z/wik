@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <% if current_user.premium? %>
   <% flash[:notice] = "You are already subscribed to premium!" %>
   <% redirect root_path %>
@@ -7,15 +6,19 @@
   <% redirect root_path %>
 <% else %>
   <%= form_tag charges_path do %>
-    <h4>Subscribe to Premium</h4>
-    <script class='stripe-button' src="https://checkout.stripe.com/checkout.js"
-=======
-<%= form_tag charges_path do %>
   <h4>Subscribe to Premium</h4>
-  <script class='stripe-button' src="https://checkout.stripe.com/checkout.js"
->>>>>>> collaborators
+  <script class='stripe-button'
+      src="https://checkout.stripe.com/checkout.js"
       data-key="<%= @stripe_btn_data[:key] %>"
       data-amount="<%= @stripe_btn_data[:amount] %>"
-      data-description="<%= @stripe_btn_data[:description] %>" >
+      data-description="<%= @stripe_btn_data[:description] %>">
   </script>
+  <% end %>
 <% end %>
+
+
+<!--
+<%= form_tag charges_path do %>
+  <h4>Subscribe to Premium</h4>
+  <script class='stripe-button' src="https://checkout.stripe.com/checkout.js"></script>
+<% end %> -->

@@ -1,6 +1,6 @@
 class WikisController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :create, :edit, :update]
-
+  before_action :authenticate_user!
+  
   def index
     @wikis = policy_scope(Wiki)
   end
@@ -55,7 +55,7 @@ class WikisController < ApplicationController
 
   def destroy
     @wiki = Wiki.find(params[:id])
-    
+
     if @wiki.delete
       flash[:notice] = "#{@wiki.title} was successfully deleted"
       redirect_to wikis_path

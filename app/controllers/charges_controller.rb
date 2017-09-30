@@ -9,12 +9,12 @@ class ChargesController < ApplicationController
       flash[:notice] = "You are an admin and do not need to subscribe to premium!"
       redirect_to root_path
     end
-    
-   @stripe_btn_data = {
+
+    @stripe_btn_data = {
      key: "#{ Rails.configuration.stripe[:publishable_key] }",
      description: "Premium Membership - #{current_user.email}",
      amount: 1500
-   }
+    }
   end
 
   def create
@@ -25,7 +25,7 @@ class ChargesController < ApplicationController
 
   subscription = Stripe::Subscription.create(
     customer: customer.id,
-    plan: 'premium',
+    plan: 'premium'
   )
 
   current_user.update_attributes(role: 'premium')
