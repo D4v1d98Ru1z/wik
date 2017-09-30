@@ -14,7 +14,7 @@
 
 **Databases:** SQLite (Test, Development), PostgreSQL (Production)
 
-** Gems Used: **
+**Gems Used:**
 - _Factory Girl_ - Development
 - _Bootstrap_ - Styling
 - _Bcrypt_ - Data Encryption
