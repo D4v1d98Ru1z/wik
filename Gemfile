@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 
  # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
  gem 'rails', '4.2.5'
+ gem 'dotenv-rails', groups: [:development, :test]
 
  group :production do
    gem 'pg'
@@ -28,6 +29,7 @@ end
  gem "pundit"
  gem "stripe"
  gem 'redcarpet'
+ gem 'braintree', '~> 2.78.0'
 
  group :development, :test do
    gem 'byebug'
