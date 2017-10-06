@@ -1,8 +1,4 @@
-<head>
-  <meta charset="utf-8">
-  <script src="https://js.braintreegateway.com/web/dropin/1.8.0/js/dropin.min.js"></script>
-</head>
-<body>
+<div class="content">
   <div class="text-center">
     <% if current_user.premium? %>
       <% flash[:notice] = "You are already subscribed to premium!" %>
@@ -12,32 +8,29 @@
       <% redirect root_path %>
     <% else %>
       <%= form_tag charges_path do %>
-      <h4>Subscribe to Premium</h4>
-      <div id="dropin-container"></div>
-      <button class="btn btn-success btn-sm" id="submit-button">Request payment method</button>
-      <script>
-        var button = document.querySelector('#submit-button');
+        <h4>Subscribe to Premium</h4>
+        <div id="dropin-container"></div>
+          <button class="btn btn-success btn-sm" id="submit-button">Subscribe to premium</button>
+          <script src="https://js.braintreegateway.com/web/dropin/1.8.0/js/dropin.min.js"></script>
+          <script>
+            var button = document.querySelector('#submit-button');
+            var token = "<%= @token %>";
 
-        braintree.dropin.create({
-          authorization: 'CLIENT_TOKEN_FROM_SERVER',
-          container: '#dropin-container'
-        }, function (createErr, instance) {
-          button.addEventListener('click', function () {
-          instance.requestPaymentMethod(function (err, payload) {
-          // Submit payload.nonce to your server
+            braintree.dropin.create({
+              authorization: token,
+              container: '#dropin-container'
+            }, function (createErr, instance) {
+              button.addEventListener('click', function () {
+              instance.requestPaymentMethod(function (err, payload) {
+                if (err) {
+                  console.log('Error: ', err);
+                  return;
+                }
+                });
+              });
             });
-          });
-        });
-      </script>
+          </script>
+        <% end %>
       <% end %>
-    <% end %>
   </div>
-</body>
-
-  <!-- Stripe integration -->
-  <!-- <script class='stripe-button'
-      src="https://checkout.stripe.com/checkout.js"
-      data-key="<%= @stripe_btn_data[:key] %>"
-      data-amount="<%= @stripe_btn_data[:amount] %>"
-      data-description="<%= @stripe_btn_data[:description] %>">
-  </script> -->
+</div>

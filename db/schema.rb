@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170629051250) do
+ActiveRecord::Schema.define(version: 20171006194831) do
 
   create_table "collaborators", force: :cascade do |t|
     t.integer  "user_id"
@@ -41,6 +41,8 @@ ActiveRecord::Schema.define(version: 20170629051250) do
     t.string   "stripe_subscription"
     t.string   "stripe_id"
     t.integer  "collaborator_id"
+    t.string   "braintree_id"
+    t.string   "braintree_subscription"
   end
 
   add_index "users", ["collaborator_id"], name: "index_users_on_collaborator_id"

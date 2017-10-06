@@ -5,6 +5,7 @@
 ## Features
 - Users can sign up for a free account to store public wikis
 - Users can upgrade their account to premium to store private wikis
+- Payments can be accepted through Braintree or Stripe integrations
 - Premium users can add collaborators to their wikis
 - Wikis can be created through markdown
 
@@ -23,6 +24,8 @@
 - _Devise_ - Authentication
 - _Pundit_ - Authorization
 - _Faker_ - Seed Data
+- _Braintree_ - Payments
+- _Dotenv_ - Evnironment
 - _Stripe_ - Payments
 - _Redcarpet_ - Markdown parser
 
