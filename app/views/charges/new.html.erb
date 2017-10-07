@@ -20,12 +20,12 @@
               authorization: token,
               container: '#dropin-container'
             }, function (createErr, instance) {
-              button.addEventListener('click', function () {
-              instance.requestPaymentMethod(function (err, payload) {
-                if (err) {
-                  console.log('Error: ', err);
-                  return;
-                }
+                button.addEventListener('click', function () {
+                  instance.requestPaymentMethod(function (err, payload) {
+                    if (err) {
+                      console.log('Error: ', err);
+                    return;
+                  }
                 });
               });
             });

@@ -21,28 +21,59 @@ class ChargesController < ApplicationController
 
   def create
     # Braintree Integration
-
-    # in production, you would use the nonce that was passed through params: (Ex: params[:payment_method_nonce])
+    # In production, you would use the nonce that was passed through params: (Ex: params[:payment_method_nonce])
     nonce = 'fake-valid-nonce'
     amount = "15"
 
-    customer = Braintree::Customer.create(
-      email: current_user.email
-    )
+    # Search the Braintree vault to see if there is an exisitng customer matching the current_user email
+    collection = Braintree::Customer.search do |search|
+      search.email.is "#{current_user.email}"
+    end
 
-    result = Braintree::Transaction.sale(
-      amount: amount,
-      payment_method_nonce: nonce,
-      options: {
-        submit_for_settlement: true
-      }
-    )
+    my_customer = nil
+
+    collection.each do |customer|
+      my_customer = customer.email
+    end
+
+    # If there is not an exisiting customer, create a new customer in the vault along with a new transaction
+    # Otherwise, create a new transaction for the existing customer customer
+    if my_customer == nil
+      my_customer = Braintree::Customer.create(
+        email: current_user.email
+      )
+
+      result = Braintree::Transaction.sale(
+        customer_id: my_customer.customer.id,
+        amount: amount,
+        payment_method_nonce: nonce,
+        options: {
+          submit_for_settlement: true
+        }
+      )
+    else
+      my_customer = Braintree::Customer.search do |search|
+        search.email.is "#{my_customer}"
+      end
+
+      my_customer = Braintree::Customer.find(my_customer.ids.first)
+      binding.pry
+
+      result = Braintree::Transaction.sale(
+        customer_id: my_customer.id,
+        amount: amount,
+        payment_method_nonce: nonce,
+        options: {
+          submit_for_settlement: true
+        }
+      )
+    end
 
     if result.success? || result.transaction
       puts "Transaction successful!: #{result.transaction.id}"
       flash[:notice] = "Welcome to Premium! You can now enjoy creating private wikis!"
       current_user.update_attributes(role: 'premium')
-      # current_user.update_attributes(braintree_id: )
+      current_user.update_attributes(braintree_id: my_customer.id)
       # current_user.update_attributes(braintree_subscription: )
       redirect_to root_path
     else
