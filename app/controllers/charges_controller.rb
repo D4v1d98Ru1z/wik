@@ -30,7 +30,7 @@ class ChargesController < ApplicationController
         email: current_user.email,
         payment_method_nonce: nonce,
       )
-      
+
       # Find the new customer that was newly created
       my_new_customer = Braintree::Customer.find(my_customer.customer.id)
 
@@ -70,13 +70,14 @@ class ChargesController < ApplicationController
   end
 
   def destroy
+    customer_subscription = Braintree::Subscription.cancel(
+      current_user.braintree_subscription
+    )
 
-    # Stripe Integration
-    # subscription = Stripe::Subscription.retrieve(current_user.stripe_subscription)
-    # subscription.delete
-    # current_user.update_attributes(role: 'standard')
-    # current_user.wikis.update_all(private: false)
-    # redirect_to root_path
-    # flash[:notice] = "Your membership has been downgraded to standard."
+    current_user.update_attributes(role: 'standard')
+    current_user.update_attributes(braintree_subscription: nil)
+    current_user.wikis.update_all(private: false)
+    flash[:notice] = "Your membership has been downgraded to standard. Your wikis have been made public."
+    redirect_to root_path
   end
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171006194831) do
+ActiveRecord::Schema.define(version: 20171008185001) do
 
   create_table "collaborators", force: :cascade do |t|
     t.integer  "user_id"
@@ -38,8 +38,6 @@ ActiveRecord::Schema.define(version: 20171006194831) do
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
     t.integer  "role"
-    t.string   "stripe_subscription"
-    t.string   "stripe_id"
     t.integer  "collaborator_id"
     t.string   "braintree_id"
     t.string   "braintree_subscription"
