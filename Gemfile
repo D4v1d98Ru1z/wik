@@ -27,7 +27,6 @@ end
  gem 'figaro'
  gem 'devise'
  gem "pundit"
- gem "stripe"
  gem 'redcarpet'
  gem 'braintree', '~> 2.78.0'
 
