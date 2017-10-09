@@ -5,6 +5,10 @@ RSpec.describe WikisController, type: :controller do
   let(:my_wiki) { Wiki.create!(title: "title", body: "body", private: false, user: my_user) }
 
   describe "GET #index" do
+    before do
+      sign_in my_user
+    end
+    
     it "returns http success" do
       get :index
       expect(response).to have_http_status(:success)
