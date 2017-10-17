@@ -18,7 +18,12 @@
 
             braintree.dropin.create({
               authorization: token,
-              container: '#dropin-container'
+              container: '#dropin-container',
+              paypal: {
+                flow: 'vault',
+                amount: '10.00',
+                currency: 'USD'
+              }
             }, function (createErr, instance) {
                 button.addEventListener('click', function () {
                   instance.requestPaymentMethod(function (err, payload) {
