@@ -20,9 +20,7 @@
               authorization: token,
               container: '#dropin-container',
               paypal: {
-                flow: 'vault',
-                amount: '10.00',
-                currency: 'USD'
+                flow: 'vault'
               }
             }, function (createErr, instance) {
                 button.addEventListener('click', function () {
