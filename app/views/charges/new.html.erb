@@ -1,21 +1,20 @@
-<div class="content">
-  <div class="text-center">
-    <% if current_user.premium? %>
-      <% flash[:notice] = "You are already subscribed to premium!" %>
-      <% redirect root_path %>
-    <% elsif current_user.admin? %>
-      <% flash[:notice] = "You are an admin. There is no need to upgrade your account!" %>
-      <% redirect root_path %>
-    <% else %>
-      <%= form_tag charges_path do %>
-        <h4>Subscribe to Premium</h4>
-        <div id="dropin-container"></div>
-          <button class="btn btn-success btn-sm" id="submit-button">Subscribe to premium</button>
-          <script src="https://js.braintreegateway.com/web/dropin/1.8.0/js/dropin.min.js"></script>
-          <script>
-            var button = document.querySelector('#submit-button');
-            var token = "<%= @token %>";
-
+<div class="text-center">
+  <h4>Subscribe to Premium</h4>
+</div>
+  <% if current_user.premium? %>
+    <% flash[:notice] = "You are already subscribed to premium!" %>
+    <% redirect root_path %>
+  <% elsif current_user.admin? %>
+    <% flash[:notice] = "You are an admin. There is no need to upgrade your account!" %>
+    <% redirect root_path %>
+  <% else %>
+    <%= form_tag charges_path do %>
+      <div id="dropin-container"></div>
+        <button class="btn btn-success btn-sm" id="submit-button">Subscribe to premium</button>
+        <script src="https://js.braintreegateway.com/web/dropin/1.8.0/js/dropin.min.js"></script>
+        <script>
+          var button = document.querySelector('#submit-button');
+          var token = "<%= @token %>";
             braintree.dropin.create({
               authorization: token,
               container: '#dropin-container',
@@ -32,8 +31,7 @@
                 });
               });
             });
-          </script>
-        <% end %>
-      <% end %>
-  </div>
-</div>
+        </script>
+      </div>
+  <% end %>
+<% end %>
