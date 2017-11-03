@@ -29,7 +29,6 @@ end
  gem "pundit"
  gem 'redcarpet'
  gem 'braintree', '~> 2.78.0'
- gem 'friendly_id', '~> 5.1.0'
 
  group :development, :test do
    gem 'byebug'
