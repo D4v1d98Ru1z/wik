@@ -36,6 +36,6 @@ end
    gem 'rspec-rails'
    gem 'shoulda'
    gem 'faker'
-   gem 'factory_girl_rails'
+   gem 'factory_bot_rails'
    gem 'pry-rails'
  end
